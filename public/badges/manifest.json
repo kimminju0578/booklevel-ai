@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "renderer": "src/components/gamification/badge-art.tsx",
+  "visualRules": {
+    "common": "single-medal",
+    "uncommon": "double-border",
+    "rare": "laurel-detail",
+    "epic": "layered-crest",
+    "legendary": "outer-frame-metallic-accent"
+  },
+  "families": ["reading", "essay", "discussion", "knowledge", "streak", "ranking", "seasonal"]
+}

@@ -1,0 +1,1 @@
+export default function Loading(){return <main className="shell app-page" aria-busy="true" aria-label="페이지 불러오는 중"><div className="skeleton-title"/><div className="skeleton-grid"><i/><i/><i/></div></main>}

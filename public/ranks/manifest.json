@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "renderer": "src/components/gamification/rank-mark.tsx",
+  "families": [
+    { "key": "reader", "asset": "/ranks/reader.svg", "silhouette": "open-book" },
+    { "key": "explorer", "asset": "/ranks/explorer.svg", "silhouette": "compass" },
+    { "key": "scholar", "asset": "/ranks/scholar.svg", "silhouette": "laurel-book" },
+    { "key": "expert", "asset": "/ranks/expert.svg", "silhouette": "star-book" },
+    { "key": "master", "asset": "/ranks/master.svg", "silhouette": "layered-crest" },
+    { "key": "grandmaster", "asset": "/ranks/grandmaster.svg", "silhouette": "heraldic-crest" },
+    { "key": "challenger", "asset": "/ranks/challenger.svg", "silhouette": "crown-laurel-star" }
+  ]
+}
