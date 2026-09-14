@@ -385,6 +385,14 @@ button:disabled { opacity: .55; cursor: not-allowed; }
 .discussion-link p { color: var(--text-muted); font-size: 14px; line-height: 1.65; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .community-columns { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 22px; align-items: start; }
 .essay-preview { display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; overflow: hidden; }
+.demo-page { display: grid; gap: 20px; }
+.demo-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.ranking-table { padding: 0 28px; }
+.ranking-row { display: grid; grid-template-columns: 48px 1fr auto; gap: 16px; align-items: center; border-top: 1px solid var(--border); padding: 18px 0; }
+.ranking-row > strong { color: var(--primary-dark); font-size: 18px; }
+.ranking-row h3 { font-size: 16px; }
+.ranking-row span { color: var(--primary-dark); font-weight: 650; white-space: nowrap; }
+@media (max-width: 720px) { .demo-grid { grid-template-columns: 1fr; } .ranking-table { padding-inline: 20px; } .ranking-row { grid-template-columns: 36px 1fr; } .ranking-row > span { grid-column: 2; } }
 .essay-setup { width: min(760px,100%); margin-inline: auto; }
 .essay-toolbar { position: sticky; top: 92px; z-index: 4; display: flex; justify-content: space-between; align-items: center; gap: 20px; margin-bottom: 14px; padding: 13px 16px; border: 1px solid var(--border); border-radius: var(--radius-small); background: color-mix(in srgb,var(--surface) 94%,transparent); backdrop-filter: blur(14px); box-shadow: var(--shadow-soft); }
 .essay-toolbar > div { display: flex; align-items: center; gap: 12px; }

@@ -18,3 +18,14 @@ export function DemoRecommendations() {
 }
 
 export function DemoLibrary() { return <DemoPage title="읽고 싶은 책과 읽은 책." description="샘플 서재입니다. 로그인과 Supabase를 연결하면 나만의 기록을 저장할 수 있어요."><div className="book-grid">{books.map((book) => <Card key={book.id}><Badge tone="sage">읽고 싶어요</Badge><h3 className="page-section">{book.title}</h3><p className="author">{book.author}</p></Card>)}</div></DemoPage>; }
+
+export function DemoRanking() {
+  const rows = [
+    ["01", "책갈피 수집가", "1,240 RP", "논술 8회 · 완독 12권"],
+    ["02", "문장 사이의 독자", "1,080 RP", "논술 6회 · 완독 10권"],
+    ["03", "깊이 읽는 사람", "960 RP", "논술 5회 · 완독 8권"],
+    ["04", "오늘도 한 페이지", "820 RP", "논술 3회 · 완독 7권"],
+    ["05", "생각을 모으는 독자", "740 RP", "논술 2회 · 완독 6권"],
+  ];
+  return <DemoPage title="이번 시즌, 어디까지 왔을까요?" description="읽고 생각한 깊이가 쌓이는 BOOKLEVEL 시즌 랭킹 샘플입니다."><Card className="ranking-table"><div className="section-heading"><h3>SEASON 01 · DEMO</h3><Badge tone="teal">이번 주</Badge></div>{rows.map(([rank, name, points, activity]) => <div className="ranking-row" key={rank}><strong>{rank}</strong><div><h3>{name}</h3><p className="caption">{activity}</p></div><span>{points}</span></div>)}</Card></DemoPage>;
+}
