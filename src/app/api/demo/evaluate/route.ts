@@ -1,7 +1,7 @@
 import { z } from "zod";
-import { structuredAI } from "@/lib/ai/client";
+import { AIServiceError, structuredAI } from "@/lib/ai/client";
 import { essayEvaluationPrompt } from "@/lib/ai/prompts";
-import { evaluationSchema } from "@/lib/domain/schemas";
+import { evaluationOutput, parseEvaluation } from "@/lib/domain/schemas";
 import { ApiError } from "@/lib/server/errors";
 
 const inputSchema = z.object({
@@ -20,12 +20,24 @@ export async function POST(request: Request) {
       "demo-user",
       essayEvaluationPrompt,
       { question: input.question, essay: input.content },
-      evaluationSchema,
+      evaluationOutput,
+      parseEvaluation,
+      { throwOnError: true },
     );
     if (!result) throw new ApiError(502, "AI_UNAVAILABLE", "AI 평가를 완료하지 못했습니다. 잠시 후 다시 시도해주세요.");
     return Response.json({ evaluation: result.value });
   } catch (error) {
     if (error instanceof ApiError) return Response.json({ error: { code: error.code, message: error.message } }, { status: error.status });
+    if (error instanceof AIServiceError) {
+      const messages: Record<AIServiceError["code"], string> = {
+        AI_RATE_LIMITED: "AI 요청이 많습니다. 잠시 후 다시 시도해주세요.",
+        AI_TIMEOUT: "AI 응답이 지연되고 있습니다. 잠시 후 다시 시도해주세요.",
+        AI_SERVER_ERROR: "OpenAI 서버가 잠시 불안정합니다. 잠시 후 다시 시도해주세요.",
+        AI_CONFIGURATION: "OpenAI 모델 설정을 확인해주세요.",
+        AI_UNAVAILABLE: "AI 피드백을 연결하지 못했습니다. 잠시 후 다시 시도해주세요.",
+      };
+      return Response.json({ error: { code: error.code, message: messages[error.code] } }, { status: error.status });
+    }
     if (error instanceof z.ZodError) return Response.json({ error: { code: "VALIDATION_ERROR", message: "질문과 답안을 확인해주세요." } }, { status: 400 });
     return Response.json({ error: { code: "INTERNAL_ERROR", message: "평가 중 문제가 발생했습니다. 다시 시도해주세요." } }, { status: 500 });
   }

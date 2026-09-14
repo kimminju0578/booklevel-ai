@@ -9,6 +9,10 @@ export const rubricLabels = { understanding:"논제 이해", thesis:"주장 명�
 export const scoresSchema = z.object({understanding:z.number().int().min(0).max(15),thesis:z.number().int().min(0).max(15),reasoning:z.number().int().min(0).max(20),evidence:z.number().int().min(0).max(15),counterargument:z.number().int().min(0).max(15),structure:z.number().int().min(0).max(10),expression:z.number().int().min(0).max(10),total:z.number().int().min(0).max(100)});
 export const evaluationOutput = z.object({scores:scoresSchema,strengths:z.array(z.string().max(1000)).min(1).max(5),weaknesses:z.array(z.string().max(1000)).min(1).max(5),rewrite_goal:z.string().max(2000),guiding_question:z.string().max(1000)});
 export const evaluationSchema = evaluationOutput.refine(v=>Object.keys(rubricMax).reduce((sum,k)=>sum+v.scores[k as keyof typeof rubricMax],0)===v.scores.total,{message:"평가 점수 합계가 일치하지 않습니다."});
+export function parseEvaluation(value: z.infer<typeof evaluationOutput>) {
+ const total=Object.keys(rubricMax).reduce((sum,key)=>sum+value.scores[key as keyof typeof rubricMax],0);
+ return evaluationSchema.parse({...value,scores:{...value.scores,total}});
+}
 export const reasonSchema = z.object({reason:z.string().min(1).max(1200),next_learning_focus:z.array(z.string().max(200)).max(3)});
 export const questionSchema = z.object({question:z.string().min(10).max(2000),goal:z.string().max(500),evaluation_focus:z.array(z.string().max(100)).max(7)});
 export const discussionSchema = z.object({title:z.string().min(1).max(160),question:z.string().min(10).max(2000),suggested_angles:z.array(z.string().max(300)).max(3)});

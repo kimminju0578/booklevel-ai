@@ -6,8 +6,9 @@ import { essayEvaluationPrompt, essayQuestionPrompt } from "@/lib/ai/prompts";
 import {
   draftInput,
   essayStartInput,
-  evaluationSchema,
+  evaluationOutput,
   generateQuestionInput,
+  parseEvaluation,
   questionSchema,
   submittedDraftInput,
   uuid,
@@ -216,7 +217,8 @@ async function evaluateEssay(userId: string, essayId: string) {
     userId,
     essayEvaluationPrompt,
     { question: question?.question, essay: essay?.content },
-    evaluationSchema,
+    evaluationOutput,
+    parseEvaluation,
   );
   if (!result) {
     checked(
