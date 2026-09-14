@@ -9,6 +9,7 @@ import {
   evaluationSchema,
   generateQuestionInput,
   questionSchema,
+  submittedDraftInput,
   uuid,
 } from "@/lib/domain/schemas";
 import { timeFeedback } from "@/lib/domain/scoring";
@@ -299,7 +300,7 @@ export async function submitEssay(request: Request, attemptId: string) {
   uuid.parse(attemptId);
   const { user } = await requireUser();
   await rateLimit(request, "essay-submit", user.id, 10, 3600);
-  const input = await body(request, saveInput);
+  const input = await body(request, submittedDraftInput);
   const essay = checked(
     await adminDb().rpc("submit_essay", {
       p_user: user.id,

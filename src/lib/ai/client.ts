@@ -6,7 +6,7 @@ import { adminDb } from '@/lib/server/db';
 
 type Feature='recommendation'|'discussion'|'essay_question'|'essay_evaluation';
 export async function structuredAI<T>(feature:Feature,userId:string,system:string,input:unknown,schema:z.ZodType<T>,validate:(value:T)=>T=(v)=>v):Promise<{value:T;model:string}|null> {
- const model=feature==='recommendation'?process.env.OPENAI_MODEL_RECOMMENDATION:feature==='discussion'?process.env.OPENAI_MODEL_DISCUSSION:process.env.OPENAI_MODEL_ESSAY;
+ const model=process.env.OPENAI_MODEL;
  if(!process.env.OPENAI_API_KEY||!model)return null;
  const client=new OpenAI({apiKey:process.env.OPENAI_API_KEY,maxRetries:0,timeout:20000});
  for(let attempt=0;attempt<2;attempt++){

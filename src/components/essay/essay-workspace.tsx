@@ -136,6 +136,7 @@ export function EssayWorkspace() {
   >("loading");
   const [history, setHistory] = useState<HistoryRow[]>([]);
   const loadedAt = useRef(0);
+  const requestInFlight = useRef(false);
   const loadDraft = async (attemptId: string) => {
     const data = await api<Draft>(`/api/essay/attempts/${attemptId}`);
     setDraft(data);
@@ -279,7 +280,8 @@ export function EssayWorkspace() {
     return () => window.clearTimeout(timer);
   }, [dirty, draft, save]);
   async function submit() {
-    if (!draft) return;
+    if (!draft || requestInFlight.current || content.trim().length < 20) return;
+    requestInFlight.current = true;
     setState("submitting");
     setMessage("");
     try {
@@ -301,10 +303,13 @@ export function EssayWorkspace() {
           : "답안을 제출하지 못했습니다.",
       );
       setState("writing");
+    } finally {
+      requestInFlight.current = false;
     }
   }
   async function retryEvaluation() {
-    if (!draft) return;
+    if (!draft || requestInFlight.current) return;
+    requestInFlight.current = true;
     setState("submitting");
     try {
       const result = await api<{
@@ -323,6 +328,8 @@ export function EssayWorkspace() {
           : "평가를 다시 시도하지 못했습니다.",
       );
       setState("done");
+    } finally {
+      requestInFlight.current = false;
     }
   }
   async function rewrite() {
