@@ -255,6 +255,10 @@ button:disabled { opacity: .55; cursor: not-allowed; }
 .profile-nav-link { display: inline-flex; align-items: center; gap: 8px; color: var(--primary-dark); font-size: 13px; font-weight: 650; }
 .header-avatar { display: grid; place-items: center; width: 34px; height: 34px; overflow: hidden; border: 1px solid var(--control-border); border-radius: 50%; background: var(--blue-soft); font-size: 18px; }
 .header-avatar img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.session-actions { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; }
+.profile-nav-link { min-height: 44px; padding: 5px 10px 5px 6px; border: 1px solid var(--control-border); border-radius: 999px; background: var(--surface); text-decoration: none; }
+.profile-nav-link:hover { border-color: var(--primary-dark); background: var(--blue-soft); }
+.logout-button { min-height: 44px; padding-inline: 10px; }
 .profile-heading h2 { margin-bottom: 8px; }
 
 @media (max-width: 1000px) {
