@@ -39,6 +39,14 @@ export function BadgeArt({
           d="M50 13 82 26v28c0 20-12 34-32 43C30 88 18 74 18 54V26z"
         />
         <path
+          className="badge-art__rim"
+          d="M50 9 87 23v32c0 23-14 40-37 49C27 95 13 78 13 55V23z"
+        />
+        <path className="badge-art__divider" d="M28 31h14m18 0h14" />
+        <circle className="badge-art__jewel" cx="23" cy="27" r="2" />
+        <circle className="badge-art__jewel" cx="77" cy="27" r="2" />
+        <circle className="badge-art__jewel" cx="50" cy="17" r="2" />
+        <path
           className="badge-art__ornament"
           d="M24 29 17 23m59 6 7-6M24 83l-7 7m59-7 7 7"
         />

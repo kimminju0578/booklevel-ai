@@ -2797,6 +2797,24 @@ button:disabled {
   stroke: color-mix(in srgb, var(--badge-accent) 60%, var(--border));
   stroke-width: 1;
 }
+.badge-art__rim {
+  fill: none;
+  stroke: color-mix(in srgb, var(--badge-accent) 55%, #f6edda);
+  stroke-width: 1.2;
+  opacity: 0.95;
+}
+.badge-art__divider {
+  fill: none;
+  stroke: color-mix(in srgb, var(--badge-accent) 55%, #f6edda);
+  stroke-width: 1;
+  stroke-linecap: round;
+  opacity: 0.85;
+}
+.badge-art__jewel {
+  fill: #f4e7c9;
+  stroke: var(--badge-accent);
+  stroke-width: 1;
+}
 .badge-art__ribbon {
   fill: color-mix(in srgb, var(--badge-accent) 70%, var(--navy));
   opacity: 0.78;
@@ -2873,6 +2891,12 @@ button:disabled {
     var(--surface),
     color-mix(in srgb, var(--badge-accent, #ae9558) 8%, var(--surface))
   );
+  border-color: color-mix(
+    in srgb,
+    var(--badge-accent, var(--border)) 30%,
+    var(--border)
+  );
+  box-shadow: 0 10px 24px rgba(37, 59, 74, 0.06);
 }
 .badge-catalog-card {
   width: 100%;
