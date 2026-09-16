@@ -2585,6 +2585,13 @@ button:disabled {
   stroke: color-mix(in srgb, var(--rank-accent) 70%, var(--border));
   stroke-width: 1.5;
 }
+.rank-mark__ornament {
+  fill: none;
+  stroke: color-mix(in srgb, var(--rank-accent) 72%, #f5ead0);
+  stroke-width: 2;
+  stroke-linecap: round;
+  opacity: 0.9;
+}
 .rank-mark__ribbon {
   fill: color-mix(in srgb, var(--rank-accent) 70%, var(--navy));
   opacity: 0.8;
@@ -2658,6 +2665,29 @@ button:disabled {
 }
 .rank-mark--challenger .rank-mark__ribbon {
   fill: var(--rank-accent);
+}
+.leaderboard-row--top-1,
+.leaderboard-row--top-2,
+.leaderboard-row--top-3 {
+  min-height: 86px;
+  border: 1px solid
+    color-mix(in srgb, var(--rank-accent, #ae9558) 28%, var(--border));
+  border-radius: var(--radius-small);
+  background: linear-gradient(
+    100deg,
+    #fffdf8,
+    color-mix(in srgb, var(--rank-accent, #ae9558) 10%, var(--surface))
+  );
+  box-shadow: 0 8px 20px #253b4a0d;
+}
+.leaderboard-row--top-1 {
+  --rank-accent: #ae9558;
+}
+.leaderboard-row--top-2 {
+  --rank-accent: #8b969b;
+}
+.leaderboard-row--top-3 {
+  --rank-accent: #9b8065;
 }
 
 .equipped-badges {
@@ -2771,6 +2801,13 @@ button:disabled {
   fill: color-mix(in srgb, var(--badge-accent) 70%, var(--navy));
   opacity: 0.78;
 }
+.badge-art__ornament {
+  fill: none;
+  stroke: color-mix(in srgb, var(--badge-accent) 70%, #f5ead0);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  opacity: 0.9;
+}
 .badge-art__book,
 .badge-art__paper,
 .badge-art__speech,
@@ -2821,15 +2858,21 @@ button:disabled {
 }
 .badge-catalog-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
 }
 .badge-catalog-card {
   display: grid;
-  grid-template-columns: 118px 1fr;
-  gap: 22px;
+  grid-template-columns: 1fr;
+  gap: 14px;
   align-items: center;
-  min-height: 180px;
+  min-height: 270px;
+  padding: 24px;
+  background: linear-gradient(
+    150deg,
+    var(--surface),
+    color-mix(in srgb, var(--badge-accent, #ae9558) 8%, var(--surface))
+  );
 }
 .badge-catalog-card {
   width: 100%;
@@ -2847,6 +2890,10 @@ button:disabled {
 .badge-catalog-card h2 {
   margin: 8px 0 4px;
   font-size: 21px;
+}
+.badge-catalog-card > .badge-art {
+  justify-content: center;
+  padding: 6px 0 2px;
 }
 .rarity-label {
   display: inline-flex;
@@ -3055,6 +3102,9 @@ button:disabled {
   }
   .main-nav a {
     font-size: 13px;
+  }
+  .badge-catalog-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 @media (max-width: 760px) {
