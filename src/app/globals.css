@@ -395,6 +395,8 @@ button:disabled { opacity: .55; cursor: not-allowed; }
 .taste-hero-result { display: grid; grid-template-columns: minmax(180px, 260px) minmax(0, 1fr); gap: clamp(24px, 5vw, 56px); align-items: center; padding: clamp(28px, 5vw, 54px); }
 .taste-character { width: min(100%, 260px); aspect-ratio: 1; border: 8px solid var(--surface); border-radius: 28px; background-image: url('/images/taste-characters.png'); background-size: 400% 200%; background-repeat: no-repeat; box-shadow: var(--shadow-soft); }
 .taste-hero-copy { min-width: 0; }
+.taste-share-actions { position: relative; }
+.taste-share-menu { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
 .taste-result-label { color: var(--text-muted); margin-top: 20px; }
 .taste-hero-result h2 { margin-top: 4px; font-size: clamp(34px, 5vw, 58px); }
 .taste-hero-result > .reading-copy { max-width: 600px; margin-top: 16px; }

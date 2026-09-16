@@ -42,6 +42,7 @@ export function TasteResult() {
     "loading",
   );
   const [message, setMessage] = useState("");
+  const [shareOpen, setShareOpen] = useState(false);
   const searchParams = useSearchParams();
   const router = useRouter();
   useEffect(() => {
@@ -96,20 +97,57 @@ export function TasteResult() {
     const url = saved?.answers
       ? tasteShareUrl(window.location.origin, saved.answers)
       : window.location.href;
-    if (navigator.share)
-      await navigator.share({
-        title: "나의 BOOKLEVEL 독서 취향",
-        text: profile?.archetype.name,
-        url,
-      });
-    else {
-      await navigator.clipboard.writeText(url);
-      setMessage("결과 링크를 복사했습니다.");
+    try {
+      if (navigator.share)
+        await navigator.share({
+          title: "나의 BOOKLEVEL 독서 취향",
+          text: profile?.archetype.name,
+          url,
+        });
+      else {
+        await navigator.clipboard.writeText(url);
+        setMessage("결과 링크를 복사했습니다.");
+      }
+    } catch {
+      setMessage("공유를 취소했어요.");
     }
+  }
+  async function copyShareLink() {
+    const saved = JSON.parse(localStorage.getItem(storageKey) || "null") as {
+      answers?: Record<string, number>;
+    } | null;
+    const url = saved?.answers
+      ? tasteShareUrl(window.location.origin, saved.answers)
+      : window.location.href;
+    await navigator.clipboard.writeText(url);
+    setMessage("결과 링크를 복사했습니다.");
+    setShareOpen(false);
+  }
+  async function shareToApp(app: "kakao" | "instagram") {
+    await share();
+    setMessage(
+      app === "kakao"
+        ? "카카오톡 공유 창에서 보낼 대상을 선택해주세요."
+        : "링크를 복사했어요. 인스타그램에서 이미지와 함께 공유해주세요.",
+    );
+    setShareOpen(false);
   }
   async function downloadImage() {
     if (!profile) return;
-    const svg = tasteResultSvg(profile);
+    let characterHref: string | undefined;
+    try {
+      const response = await fetch("/images/taste-characters.png");
+      const blob = await response.blob();
+      characterHref = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(String(reader.result));
+        reader.onerror = () => reject(new Error("character"));
+        reader.readAsDataURL(blob);
+      });
+    } catch {
+      characterHref = undefined;
+    }
+    const svg = tasteResultSvg(profile, characterHref);
     const fallback = () => {
       const blob = new Blob([svg], { type: "image/svg+xml" });
       const url = URL.createObjectURL(blob);
@@ -196,25 +234,56 @@ export function TasteResult() {
           role="img"
           aria-label={`${profile.archetype.name} 캐릭터`}
           style={{
-            backgroundPosition: characterPosition[profile.archetype.key] || "0% 0%",
+            backgroundPosition:
+              characterPosition[profile.archetype.key] || "0% 0%",
           }}
         />
-        <p className="eyebrow">YOUR READING TASTE</p>
-        <p className="taste-result-label">당신은</p>
-        <h2>{profile.archetype.name}</h2>
-        <p className="reading-copy">{profile.archetype.shortDescription}</p>
-        <div className="taste-keywords">
-          {profile.archetype.keywords.map((keyword) => (
-            <span key={keyword}>{keyword}</span>
-          ))}
-        </div>
-        <div className="button-row">
-          <Button variant="secondary" onClick={() => void share()}>
-            공유하기
-          </Button>
-          <Button variant="quiet" onClick={() => void downloadImage()}>
-            결과 이미지 저장
-          </Button>
+        <div className="taste-hero-copy">
+          <p className="eyebrow">YOUR READING TASTE</p>
+          <p className="taste-result-label">당신은</p>
+          <h2>{profile.archetype.name}</h2>
+          <p className="reading-copy">{profile.archetype.shortDescription}</p>
+          <div className="taste-keywords">
+            {profile.archetype.keywords.map((keyword) => (
+              <span key={keyword}>{keyword}</span>
+            ))}
+          </div>
+          <div className="taste-share-actions">
+            <div className="button-row">
+              <Button
+                variant="secondary"
+                onClick={() => setShareOpen((open) => !open)}
+              >
+                공유하기
+              </Button>
+              <Button variant="quiet" onClick={() => void downloadImage()}>
+                결과 이미지 저장
+              </Button>
+            </div>
+            {shareOpen && (
+              <div
+                className="taste-share-menu"
+                role="group"
+                aria-label="결과 공유 방법"
+              >
+                <Button
+                  variant="quiet"
+                  onClick={() => void shareToApp("kakao")}
+                >
+                  카카오톡
+                </Button>
+                <Button
+                  variant="quiet"
+                  onClick={() => void shareToApp("instagram")}
+                >
+                  인스타그램
+                </Button>
+                <Button variant="quiet" onClick={() => void copyShareLink()}>
+                  링크 복사
+                </Button>
+              </div>
+            )}
+          </div>
         </div>
       </Card>
       <Card>
