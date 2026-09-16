@@ -39,7 +39,7 @@ export function AssessmentResult() {
   const [message, setMessage] = useState(
     attempt ? "" : "완료한 진단 정보가 없습니다.",
   );
-  const [showReview, setShowReview] = useState(false);
+  const [showReview, setShowReview] = useState(true);
   const load = async () => {
     if (!attempt) return;
     setState("loading");
@@ -123,23 +123,46 @@ export function AssessmentResult() {
             <p className="eyebrow">ANSWER REVIEW</p>
             <h2>정답과 해설</h2>
           </div>
-          <Button variant="secondary" onClick={() => setShowReview((current) => !current)}>
+          <Button
+            variant="secondary"
+            onClick={() => setShowReview((current) => !current)}
+          >
             {showReview ? "해설 닫기" : "정답·해설 보기"}
           </Button>
         </div>
-        {showReview && <div className="assessment-review-list" aria-live="polite">
-          {result.questions.map((question, index) => {
-            const selected = question.options.find((option) => option.id === question.selectedOption)?.text;
-            const correct = question.options.find((option) => option.id === question.correctOption)?.text;
-            return <article className="assessment-review-item" key={question.id}>
-              <strong>{index + 1}. {question.question}</strong>
-              <p className={question.isCorrect ? "answer-correct" : "answer-wrong"}>{question.isCorrect ? "정답입니다." : "오답입니다."}</p>
-              <p><b>내 선택:</b> {selected ?? "선택 없음"}</p>
-              <p><b>정답:</b> {correct ?? question.correctOption}</p>
-              <p className="reading-copy">{question.explanation}</p>
-            </article>;
-          })}
-        </div>}
+        {showReview && (
+          <div className="assessment-review-list" aria-live="polite">
+            {result.questions.map((question, index) => {
+              const selected = question.options.find(
+                (option) => option.id === question.selectedOption,
+              )?.text;
+              const correct = question.options.find(
+                (option) => option.id === question.correctOption,
+              )?.text;
+              return (
+                <article className="assessment-review-item" key={question.id}>
+                  <strong>
+                    {index + 1}. {question.question}
+                  </strong>
+                  <p
+                    className={
+                      question.isCorrect ? "answer-correct" : "answer-wrong"
+                    }
+                  >
+                    {question.isCorrect ? "정답입니다." : "오답입니다."}
+                  </p>
+                  <p>
+                    <b>내 선택:</b> {selected ?? "선택 없음"}
+                  </p>
+                  <p>
+                    <b>정답:</b> {correct ?? question.correctOption}
+                  </p>
+                  <p className="reading-copy">{question.explanation}</p>
+                </article>
+              );
+            })}
+          </div>
+        )}
       </Card>
       <div className="button-row">
         <Link className="button button--primary" href="/recommendations">

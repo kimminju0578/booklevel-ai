@@ -125,7 +125,7 @@ export function AssessmentQuiz({ categorySlug }: { categorySlug: string }) {
         <h2>{question.question}</h2>
         <fieldset className="question-options">
           <legend>가장 알맞다고 생각하는 답을 선택하세요.</legend>
-          {question.options.map((option) => (
+          {question.options.map((option, optionIndex) => (
             <label className="answer-option" key={option.id}>
               <input
                 type="radio"
@@ -139,7 +139,9 @@ export function AssessmentQuiz({ categorySlug }: { categorySlug: string }) {
                   }))
                 }
               />
-              <span>{option.text}</span>
+              <span>
+                {optionIndex + 1}. {option.text}
+              </span>
             </label>
           ))}
         </fieldset>
