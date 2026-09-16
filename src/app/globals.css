@@ -252,6 +252,9 @@ button:disabled { opacity: .55; cursor: not-allowed; }
 .profile-avatar-wrap { width: 64px; height: 64px; flex: 0 0 64px; overflow: hidden; border-radius: var(--radius); background: var(--blue-soft); }
 .profile-avatar-character { display: grid; width: 100%; height: 100%; place-items: center; font-size: 32px; }
 .profile-avatar-image { display: block; width: 100%; height: 100%; object-fit: cover; }
+.profile-nav-link { display: inline-flex; align-items: center; gap: 8px; color: var(--primary-dark); font-size: 13px; font-weight: 650; }
+.header-avatar { display: grid; place-items: center; width: 34px; height: 34px; overflow: hidden; border: 1px solid var(--control-border); border-radius: 50%; background: var(--blue-soft); font-size: 18px; }
+.header-avatar img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .profile-heading h2 { margin-bottom: 8px; }
 
 @media (max-width: 1000px) {
