@@ -7,6 +7,7 @@ import { AssessmentQuiz } from "@/components/assessment/assessment-quiz";
 import { configured } from "@/lib/server/env";
 
 export const metadata: Metadata = { title: "진단 문항 · BOOKLEVEL", robots: { index: false, follow: false } };
+export const dynamic = "force-dynamic";
 
 export default async function QuizPage({ params }: { params: Promise<{ categorySlug: string }> }) {
   const { categorySlug } = await params;
