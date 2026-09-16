@@ -17,7 +17,9 @@ export async function generateRecommendations(request:Request) {
  if(!level)throw new ApiError(409,'ASSESSMENT_REQUIRED','먼저 해당 분야 진단을 완료해주세요.');
  const links=checked(await db.from('book_categories').select('book_id').eq('category_id',categoryId).limit(1000));
  if(!links?.length)return {recommendations:[],warning:'검증된 분야별 도서를 준비하고 있습니다.'};
- const candidates=bookRow.array().parse(checked(await db.from('books').select('*').in('id',links.map(b=>b.book_id)).eq('is_active',true).eq('metadata_quality','verified').gte('difficulty_level',Math.max(1,Number(level.level)-1.5)).lte('difficulty_level',Math.min(5,Number(level.level)+1.5)).limit(1000)));
+ const bookIds=links.map(b=>b.book_id);
+ const matchingCandidates=bookRow.array().parse(checked(await db.from('books').select('*').in('id',bookIds).eq('is_active',true).eq('metadata_quality','verified').gte('difficulty_level',Math.max(1,Number(level.level)-1.5)).lte('difficulty_level',Math.min(5,Number(level.level)+1.5)).limit(1000)));
+ const candidates=matchingCandidates.length>=3?matchingCandidates:bookRow.array().parse(checked(await db.from('books').select('*').in('id',bookIds).eq('is_active',true).eq('metadata_quality','verified').limit(1000)));
  const history=checked(await db.from('user_books').select('book_id,status').eq('user_id',user.id));
  const interests=checked(await db.from('user_interests').select('category_id,priority').eq('user_id',user.id));
  const topics=checked(await db.from('book_topics').select('book_id,topic,importance').in('book_id',candidates.map(b=>b.id)).eq('verified',true));
