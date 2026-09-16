@@ -1,12 +1,13 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { api, ClientApiError } from "@/lib/client/api";
 import { Card, Button, EmptyState, EssayScore, Progress } from "@/components/ui/primitives";
 
 type Evaluation = { scores: { understanding: number; thesis: number; reasoning: number; evidence: number; counterargument: number; structure: number; expression: number; total: number }; strengths: string[]; weaknesses: string[]; rewrite_goal: string; guiding_question: string };
 const rows: [keyof Evaluation["scores"], string, number][] = [["understanding", "논제 이해", 15], ["thesis", "주장 명확성", 15], ["reasoning", "논거 타당성", 20], ["evidence", "근거 활용", 15], ["counterargument", "반론·재반론", 15], ["structure", "구조·일관성", 10], ["expression", "표현력", 10]];
 const question = "책을 읽고 가장 중요하다고 생각한 주장에 동의하거나 반대하는 이유를 근거와 예상 반론을 포함해 논술하세요.";
+const draftStorageKey = "booklevel-demo-essay-draft";
 
 export function DemoCoach() {
   const [content, setContent] = useState("");
@@ -14,6 +15,19 @@ export function DemoCoach() {
   const [state, setState] = useState<"idle" | "loading" | "success" | "empty" | "error" | "retry">("idle");
   const [message, setMessage] = useState("");
   const inFlight = useRef(false);
+  const draftRestored = useRef(false);
+  useEffect(() => {
+    try {
+      const saved = window.localStorage.getItem(draftStorageKey);
+      if (saved) setContent(saved);
+    } finally {
+      draftRestored.current = true;
+    }
+  }, []);
+  useEffect(() => {
+    if (!draftRestored.current) return;
+    window.localStorage.setItem(draftStorageKey, content);
+  }, [content]);
   async function evaluate(isRetry = false) {
     if (inFlight.current) return;
     if (content.trim().length < 20) { setState("empty"); setMessage("답안을 20자 이상 작성해주세요."); return; }

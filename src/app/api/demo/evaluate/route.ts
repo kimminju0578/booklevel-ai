@@ -31,9 +31,11 @@ export async function POST(request: Request) {
     if (error instanceof AIServiceError) {
       const messages: Record<AIServiceError["code"], string> = {
         AI_RATE_LIMITED: "AI 요청이 많습니다. 잠시 후 다시 시도해주세요.",
+        AI_QUOTA: "OpenAI API 결제 정보 또는 사용 한도를 확인해주세요.",
         AI_TIMEOUT: "AI 응답이 지연되고 있습니다. 잠시 후 다시 시도해주세요.",
         AI_SERVER_ERROR: "OpenAI 서버가 잠시 불안정합니다. 잠시 후 다시 시도해주세요.",
         AI_CONFIGURATION: "OpenAI 모델 설정을 확인해주세요.",
+        AI_OUTPUT_INVALID: "AI 응답 형식을 확인하지 못했습니다. 다시 시도해주세요.",
         AI_UNAVAILABLE: "AI 피드백을 연결하지 못했습니다. 잠시 후 다시 시도해주세요.",
       };
       return Response.json({ error: { code: error.code, message: messages[error.code] } }, { status: error.status });

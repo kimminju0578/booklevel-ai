@@ -48,7 +48,7 @@ export default function Landing() {
       </section>
 
       <section id="how" className="shell">
-        <div className="journey"><div className="journey-heading"><p className="eyebrow">FIND YOUR STARTING POINT</p><h2>나의 독서에도<br />출발점이 있으니까.</h2><p>어려운 시험이 아니에요.<br />나에게 맞는 책을 찾는 작은 탐색이에요.</p><ButtonLink href="/assessment/economics" variant="quiet">진단 알아보기 <span aria-hidden="true">→</span></ButtonLink></div>
+        <div className="journey"><div className="journey-heading"><p className="eyebrow">FIND YOUR STARTING POINT</p><h2>나의 독서에도<br />출발점이 있으니까.</h2><p>어려운 시험이 아니에요.<br />나에게 맞는 책을 찾는 작은 탐색이에요.</p><ButtonLink href="/assessment" variant="quiet">진단 알아보기 <span aria-hidden="true">→</span></ButtonLink></div>
           <div className="journey-steps">{[["01", "마음이 가는 분야를 골라요", "더 알고 싶은 분야를 최대 3개 선택해요."], ["02", "10개의 질문으로 나를 알아가요", "지금 알고 있는 것부터 천천히 확인해요."], ["03", "다음에 읽을 5권을 만나요", "왜 지금 이 책인지, 읽을 방향까지 함께 살펴요."]].map(([number, title, text]) => <div className="journey-step" key={number}><span>{number}</span><div><h3>{title}</h3><p>{text}</p></div></div>)}</div>
         </div>
       </section>

@@ -6,17 +6,19 @@ import { adminDb } from '@/lib/server/db';
 import { configured } from '@/lib/server/env';
 
 type Feature='recommendation'|'discussion'|'essay_question'|'essay_evaluation';
-type AIErrorCode='AI_RATE_LIMITED'|'AI_TIMEOUT'|'AI_SERVER_ERROR'|'AI_CONFIGURATION'|'AI_UNAVAILABLE';
+type AIErrorCode='AI_RATE_LIMITED'|'AI_QUOTA'|'AI_TIMEOUT'|'AI_SERVER_ERROR'|'AI_CONFIGURATION'|'AI_OUTPUT_INVALID'|'AI_UNAVAILABLE';
 export class AIServiceError extends Error {
  constructor(public status:number,public code:AIErrorCode) {super(code)}
 }
 function classify(error:unknown):AIServiceError {
  if(error instanceof APIConnectionTimeoutError)return new AIServiceError(504,'AI_TIMEOUT');
  if(error instanceof APIConnectionError)return new AIServiceError(503,'AI_UNAVAILABLE');
+ if(error instanceof z.ZodError)return new AIServiceError(502,'AI_OUTPUT_INVALID');
  if(error instanceof APIError){
+  if(error.status===429&&error.code==='insufficient_quota')return new AIServiceError(429,'AI_QUOTA');
   if(error.status===429)return new AIServiceError(429,'AI_RATE_LIMITED');
   if(typeof error.status==='number'&&error.status>=500)return new AIServiceError(502,'AI_SERVER_ERROR');
-  if(error.status===400)return new AIServiceError(502,'AI_CONFIGURATION');
+  if(error.status===400||error.status===401||error.status===403||error.status===404)return new AIServiceError(502,'AI_CONFIGURATION');
  }
  return new AIServiceError(502,'AI_UNAVAILABLE');
 }
