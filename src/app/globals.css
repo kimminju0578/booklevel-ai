@@ -396,6 +396,12 @@ button:disabled { opacity: .55; cursor: not-allowed; }
 .demo-answer strong { color: var(--navy); font-size: 14px; }
 .demo-answer p { color: var(--text-muted); font-size: 14px; line-height: 1.7; }
 .demo-answer p b { color: var(--text-primary); }
+.assessment-review { margin-top: 20px; }
+.assessment-review-list { display: grid; gap: 18px; margin-top: 20px; }
+.assessment-review-item { display: grid; gap: 6px; padding-top: 18px; border-top: 1px solid var(--border); }
+.assessment-review-item strong { color: var(--navy); font-size: 14px; line-height: 1.6; }
+.assessment-review-item p { color: var(--text-muted); font-size: 14px; line-height: 1.7; }
+.assessment-review-item p b { color: var(--text-primary); }
 .answer-correct { color: var(--sage-ink) !important; font-weight: 700; }
 .answer-wrong { color: var(--rose-ink) !important; font-weight: 700; }
 .demo-home-hero { display: grid; grid-template-columns: 1.35fr .65fr; gap: 28px; align-items: stretch; padding: 36px; border: 1px solid var(--border); border-radius: var(--radius-large); background: linear-gradient(135deg, var(--surface), var(--blue-faint)); }
