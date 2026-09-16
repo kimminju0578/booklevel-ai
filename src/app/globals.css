@@ -84,6 +84,7 @@ h3 { font-size: 19px; line-height: 1.5; font-weight: 650; letter-spacing: -.025e
 .button--secondary:hover, .button--quiet:hover { background: var(--blue-soft); color: var(--interactive-text); }
 .button--quiet { background: transparent; color: var(--primary-dark); padding-inline: 12px; }
 .button-small { min-height: 44px; font-size: 13px; padding: 10px 14px; }
+.landing-header-actions { display: inline-flex; align-items: center; gap: 6px; }
 .button-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
 .full-width { width: 100%; }
 button:disabled { opacity: .55; cursor: not-allowed; }

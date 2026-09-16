@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Link from "next/link";
 import { books, type Book } from "@/lib/books";
 import { BookCard, BookCover } from "@/components/books/book-card";
 import { BookDetails } from "@/components/books/book-details";
@@ -21,7 +22,7 @@ export default function Landing() {
   }
 
   return <>
-    <SiteHeader action={<Button variant="secondary" className="button-small" onClick={() => interestRef.current?.showModal()}>나의 북레벨 찾기 <span aria-hidden="true">↗</span></Button>} />
+    <SiteHeader action={<div className="landing-header-actions"><Link className="button button--quiet button-small" href="/login">로그인</Link><Button variant="secondary" className="button-small" onClick={() => interestRef.current?.showModal()}>나의 북레벨 찾기 <span aria-hidden="true">↗</span></Button></div>} />
     <main id="main-content">
       <section className="shell hero-wrap">
         <div className="hero">
