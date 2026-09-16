@@ -274,6 +274,13 @@ button:disabled { opacity: .55; cursor: not-allowed; }
 }
 @media (max-width: 760px) {
   .shell { width: calc(100% - 36px); }
+  .auth-page { width: min(560px, calc(100% - 36px)); min-height: auto; padding: 28px 0 48px; display: block; }
+  .auth-brand { margin-bottom: 72px; }
+  .auth-brand .brand { font-size: 23px; }
+  .auth-heading h1 { font-size: 38px; }
+  .auth-heading > p:last-child { font-size: 15px; }
+  .auth-card { margin-top: 30px; padding: 24px 20px; }
+  .auth-switch { margin-bottom: 0; }
   .header-inner { flex-wrap: wrap; gap: 0; padding-top: 10px; }
   .brand { font-size: 23px; }
   .header-action { margin-left: auto; }
@@ -342,7 +349,16 @@ button:disabled { opacity: .55; cursor: not-allowed; }
 }
 
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
-.narrow-content, .auth-card { width: min(560px, 100%); margin-inline: auto; }
+.auth-page { width: min(1120px, calc(100% - 80px)); min-height: 100dvh; margin-inline: auto; padding: 34px 0 64px; display: grid; grid-template-columns: minmax(0, .9fr) minmax(420px, 560px); grid-template-rows: auto 1fr auto; column-gap: clamp(48px, 8vw, 120px); align-items: center; }
+.auth-brand { grid-column: 1 / -1; align-self: start; }
+.auth-brand .brand { font-size: 25px; }
+.auth-heading { align-self: center; }
+.auth-heading .eyebrow { margin-bottom: 24px; }
+.auth-heading h1 { max-width: 440px; font-size: clamp(38px, 4vw, 58px); line-height: 1.25; letter-spacing: -.05em; }
+.auth-heading > p:last-child { max-width: 360px; margin-top: 20px; color: var(--text-muted); font-size: 16px; }
+.auth-card { width: 100%; margin: 0; padding: clamp(28px, 4vw, 44px); border: 1px solid var(--border); box-shadow: var(--shadow-soft); }
+.auth-card .button { margin-top: 4px; }
+.narrow-content { width: min(560px, 100%); margin-inline: auto; }
 .form-stack { display: grid; gap: 18px; }
 .form-stack label, .interest-fieldset legend { color: var(--navy); font-size: 14px; font-weight: 650; }
 .form-stack input, .search-bar input, .select-control { width: 100%; min-height: 50px; margin-top: 8px; padding: 12px 14px; border: 1px solid var(--control-border); border-radius: var(--radius-small); background: var(--surface); color: var(--text-primary); font: inherit; }
