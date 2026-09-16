@@ -1,5 +1,3 @@
-import type { CSSProperties } from "react";
-
 type BadgeArtProps = {
   family?: string | null;
   rarity?: string | null;
@@ -16,24 +14,6 @@ const rarityClass: Record<string, string> = {
   legendary: "legendary",
 };
 
-const atlasPositions: Record<string, string> = {
-  book: "0% 0%",
-  "book-laurel": "50% 0%",
-  "laurel-star": "100% 0%",
-  quill: "0% 50%",
-  manuscript: "50% 50%",
-  grandmaster: "100% 50%",
-  challenger: "0% 100%",
-  "layered-crest": "50% 100%",
-};
-
-function getAtlasPosition(icon: string, family: string) {
-  if (atlasPositions[icon]) return atlasPositions[icon];
-  if (family === "essay") return "100% 100%";
-  if (family === "ranking" || family === "seasonal") return "50% 100%";
-  return "0% 0%";
-}
-
 export function BadgeArt({
   family = "knowledge",
   rarity = "common",
@@ -44,18 +24,11 @@ export function BadgeArt({
   const icon = iconKey ?? "first_book";
   const familyKey = family?.toLowerCase() ?? "knowledge";
   const rarityKey = rarityClass[rarity?.toLowerCase() ?? "common"] ?? "common";
-  const atlasPosition = getAtlasPosition(icon, familyKey);
   return (
     <span
       className={`badge-art badge-art--${size} badge-art--${rarityKey} badge-art--${familyKey}`}
     >
-      <span
-        className="badge-art__atlas"
-        role="img"
-        aria-label={name}
-        style={{ "--badge-atlas-position": atlasPosition } as CSSProperties}
-      />
-      <svg aria-hidden="true" viewBox="0 0 100 112" focusable="false">
+      <svg viewBox="0 0 100 112" role="img" aria-label={name} focusable="false">
         <path className="badge-art__ribbon" d="M25 75h50l-7 28-18-9-18 9z" />
         <path
           className="badge-art__outer"

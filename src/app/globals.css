@@ -2774,44 +2774,6 @@ button:disabled {
   display: inline-flex;
   flex-shrink: 0;
   color: var(--badge-accent, var(--primary-dark));
-  position: relative;
-  isolation: isolate;
-}
-.badge-art__atlas {
-  position: absolute;
-  inset: 0;
-  display: block;
-  width: 100%;
-  height: 100%;
-  background-image: url("/images/badge-atlas.png");
-  background-position: var(--badge-atlas-position, 0% 0%);
-  background-size: 300% 300%;
-  background-repeat: no-repeat;
-  border-radius: 14px;
-  filter: drop-shadow(0 12px 10px rgba(54, 43, 28, 0.18));
-  transition:
-    transform 0.25s ease,
-    filter 0.25s ease;
-}
-.badge-art--sm {
-  width: 70px;
-  height: 53px;
-}
-.badge-art--md {
-  width: 92px;
-  height: 69px;
-}
-.badge-art--lg {
-  width: 148px;
-  height: 111px;
-}
-.badge-art:hover .badge-art__atlas,
-.badge-catalog-card:hover .badge-art__atlas {
-  transform: translateY(-4px) scale(1.03);
-  filter: drop-shadow(0 18px 14px rgba(54, 43, 28, 0.24));
-}
-.badge-art > svg {
-  display: none;
 }
 .badge-art svg {
   display: block;
@@ -2898,45 +2860,6 @@ button:disabled {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
-}
-.badge-archive-banner {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 1.1fr);
-  align-items: center;
-  gap: 28px;
-  margin-bottom: 28px;
-  padding: 28px 32px;
-  overflow: hidden;
-  border: 1px solid rgba(126, 103, 64, 0.28);
-  border-radius: 18px;
-  background: linear-gradient(115deg, #f1eadb, #fbfaf5 58%, #e8dfcd);
-  box-shadow: 0 18px 38px rgba(71, 57, 37, 0.1);
-}
-.badge-archive-copy {
-  max-width: 470px;
-}
-.badge-archive-copy .section-kicker {
-  color: #8d7145;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-}
-.badge-archive-copy h2 {
-  margin: 10px 0 12px;
-  color: #263b4a;
-  font-size: clamp(24px, 3vw, 38px);
-  line-height: 1.2;
-  letter-spacing: -0.04em;
-}
-.badge-archive-copy p {
-  margin: 0;
-  color: #6e706e;
-  line-height: 1.75;
-}
-.badge-archive-visual {
-  min-height: 190px;
-  background: url("/images/badge-atlas.png") center / 100% auto no-repeat;
-  filter: drop-shadow(0 16px 15px rgba(54, 43, 28, 0.16));
 }
 .badge-catalog-card {
   display: grid;
@@ -3141,13 +3064,6 @@ button:disabled {
 }
 
 @media (max-width: 760px) {
-  .badge-archive-banner {
-    grid-template-columns: 1fr;
-    padding: 24px;
-  }
-  .badge-archive-visual {
-    min-height: 130px;
-  }
   .rank-hero-card,
   .ranking-layout {
     grid-template-columns: 1fr;
@@ -3189,9 +3105,6 @@ button:disabled {
   }
   .badge-catalog-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .badge-archive-banner {
-    grid-template-columns: 1fr 1fr;
   }
 }
 @media (max-width: 760px) {

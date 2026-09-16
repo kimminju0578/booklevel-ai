@@ -72,26 +72,6 @@ export function BadgesClient() {
     );
   return (
     <>
-      <section
-        className="badge-archive-banner"
-        aria-labelledby="badge-archive-title"
-      >
-        <div className="badge-archive-copy">
-          <span className="section-kicker">THE ORDER OF READERS</span>
-          <h2 id="badge-archive-title">
-            읽고, 쓰고, 생각한 시간이 훈장이 됩니다.
-          </h2>
-          <p>
-            작은 완독부터 깊은 탐구까지, 당신의 독서 여정을 오래 남을 메달로
-            기록해 보세요.
-          </p>
-        </div>
-        <div
-          className="badge-archive-visual"
-          role="img"
-          aria-label="BOOKLEVEL 메달 컬렉션"
-        />
-      </section>
       <div className="badge-catalog-grid">
         {data.badges.map((badge) => (
           <button
