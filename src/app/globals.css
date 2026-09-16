@@ -1236,6 +1236,14 @@ button:disabled {
   .taste-explainer {
     padding: 28px 22px;
   }
+  .taste-intro-card {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+  .taste-landing-character {
+    width: 150px;
+    margin: -4px 0 0 auto;
+  }
   .taste-explainer {
     border-left: 0;
     border-top: 1px solid var(--border);
@@ -1561,28 +1569,44 @@ button:disabled {
 }
 .taste-landing {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 28px;
-  align-items: stretch;
+  grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.92fr);
+  gap: clamp(28px, 5vw, 64px);
+  align-items: center;
 }
 .taste-intro-card,
 .taste-explainer {
-  padding: clamp(28px, 5vw, 56px);
+  padding: clamp(28px, 4vw, 52px);
+}
+.taste-intro-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 190px;
+  gap: 28px;
+  align-items: center;
+  min-height: 390px;
+  overflow: hidden;
+}
+.taste-intro-copy {
+  position: relative;
+  z-index: 1;
 }
 .taste-intro-card h2,
 .taste-explainer h2 {
   font-size: clamp(28px, 3vw, 42px);
   line-height: 1.35;
+  letter-spacing: -0.045em;
 }
-.taste-intro-card > .reading-copy {
-  max-width: 480px;
+.taste-intro-card h2 {
+  margin-top: 18px;
+}
+.taste-intro-card .reading-copy {
+  max-width: 430px;
   margin-top: 18px;
 }
 .taste-facts {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px 24px;
-  margin-top: 28px;
+  gap: 8px 20px;
+  margin-top: 30px;
   color: var(--primary-dark);
   font-size: 14px;
   font-weight: 650;
@@ -1592,12 +1616,27 @@ button:disabled {
   margin-right: 24px;
   color: var(--border-strong);
 }
+.taste-intro-card .button-row {
+  margin-top: 28px;
+}
+.taste-landing-character {
+  width: 190px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background-image: url("/images/taste-characters.png");
+  background-size: 400% 200%;
+  background-position: 33.333% 100%;
+  box-shadow: 0 20px 40px
+    color-mix(in srgb, var(--primary-dark) 15%, transparent);
+  transform: rotate(2deg);
+}
 .taste-explainer {
   align-self: center;
-  padding-block: 34px;
+  padding-block: 30px;
   border-left: 1px solid var(--border);
 }
 .taste-explainer h2 {
+  margin-top: 18px;
   font-size: 28px;
 }
 .taste-explainer .reading-copy {
