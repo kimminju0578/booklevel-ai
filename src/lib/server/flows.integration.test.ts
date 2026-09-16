@@ -34,6 +34,8 @@ beforeAll(async () => {
     "202609140001_gamification.sql",
     "202609140002_gamification_security.sql",
     "202609140003_initial_season.sql",
+    "202609160010_reading_taste_test.sql",
+    "202609160011_verified_book_taste_profiles.sql",
   ]) await database.exec(await migration(name));
   await database.query(
     "insert into auth.users(id,raw_user_meta_data) values($1,$2::jsonb)",
@@ -164,5 +166,27 @@ describe("transactional MVP flows", () => {
     expect(privateAttempts.rows).toEqual([]);
     expect(String(snapshotAccess)).toContain("permission denied");
     expect(started.rows[0].start_essay).toBeTruthy();
+  });
+
+  it("stores a completed reading taste profile atomically", async () => {
+    const answers = Object.fromEntries(Array.from({ length: 12 }, (_, index) => [
+      `70000000-0000-4000-8000-${String(index + 1).padStart(12, "0")}`,
+      4,
+    ]));
+    const completed = await database.query<{ complete_taste_test: string }>(
+      "select public.complete_taste_test($1,$2,$3::jsonb,$4)",
+      [userId, 1, JSON.stringify(answers), "reflective_explorer"],
+    );
+    const profile = await database.query<{ archetype_key: string; dimensions: Record<string, number> }>(
+      "select archetype_key, dimensions from public.user_taste_profiles where user_id=$1",
+      [userId],
+    );
+    const savedAnswers = await database.query<{ count: string }>(
+      "select count(*)::text from public.taste_test_answers where attempt_id=$1",
+      [completed.rows[0].complete_taste_test],
+    );
+    expect(profile.rows[0].archetype_key).toBe("reflective_explorer");
+    expect(Object.keys(profile.rows[0].dimensions)).toHaveLength(8);
+    expect(savedAnswers.rows[0].count).toBe("12");
   });
 });

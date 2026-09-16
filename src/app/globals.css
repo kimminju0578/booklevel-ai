@@ -281,6 +281,18 @@ button:disabled { opacity: .55; cursor: not-allowed; }
   .auth-heading > p:last-child { font-size: 15px; }
   .auth-card { margin-top: 30px; padding: 24px 20px; }
   .auth-switch { margin-bottom: 0; }
+  .taste-landing { grid-template-columns: 1fr; gap: 18px; }
+  .taste-intro-card, .taste-explainer { padding: 28px 22px; }
+  .taste-explainer { border-left: 0; border-top: 1px solid var(--border); padding-top: 28px; }
+  .taste-explainer h2 { font-size: 24px; }
+  .taste-question-card { padding: 24px 18px; }
+  .taste-options { margin-top: 44px; }
+  .taste-options legend { font-size: 26px; }
+  .taste-scale-labels { margin-top: 34px; font-size: 12px; }
+  .taste-scale { gap: 6px; }
+  .taste-scale label { min-height: 52px; }
+  .taste-book { grid-template-columns: 64px 1fr; gap: 14px; }
+  .taste-book h3 { font-size: 16px; }
   .header-inner { flex-wrap: wrap; gap: 0; padding-top: 10px; }
   .brand { font-size: 23px; }
   .header-action { margin-left: auto; }
@@ -359,6 +371,42 @@ button:disabled { opacity: .55; cursor: not-allowed; }
 .auth-card { width: 100%; margin: 0; padding: clamp(28px, 4vw, 44px); border: 1px solid var(--border); box-shadow: var(--shadow-soft); }
 .auth-card .button { margin-top: 4px; }
 .narrow-content { width: min(560px, 100%); margin-inline: auto; }
+.taste-landing { display: grid; grid-template-columns: 1.1fr .9fr; gap: 28px; align-items: stretch; }
+.taste-intro-card, .taste-explainer { padding: clamp(28px, 5vw, 56px); }
+.taste-intro-card h2, .taste-explainer h2 { font-size: clamp(28px, 3vw, 42px); line-height: 1.35; }
+.taste-intro-card > .reading-copy { max-width: 480px; margin-top: 18px; }
+.taste-facts { display: flex; flex-wrap: wrap; gap: 10px 24px; margin-top: 28px; color: var(--primary-dark); font-size: 14px; font-weight: 650; }
+.taste-facts span + span::before { content: "·"; margin-right: 24px; color: var(--border-strong); }
+.taste-explainer { align-self: center; padding-block: 34px; border-left: 1px solid var(--border); }
+.taste-explainer h2 { font-size: 28px; }
+.taste-explainer .reading-copy { margin-top: 18px; }
+.taste-question-card { max-width: 760px; margin-inline: auto; padding: clamp(24px, 5vw, 56px); }
+.taste-progress-heading, .taste-scale-labels { display: flex; justify-content: space-between; gap: 16px; color: var(--primary-dark); font-size: 14px; font-weight: 650; }
+.taste-question-card > .progress-track { margin-top: 12px; }
+.taste-options { border: 0; padding: 0; margin: clamp(44px, 8vw, 80px) 0 0; }
+.taste-options legend { width: 100%; font-size: clamp(25px, 4vw, 38px); line-height: 1.45; font-weight: 650; color: var(--navy); }
+.taste-scale-labels { margin-top: 42px; color: var(--text-muted); font-weight: 500; }
+.taste-scale { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 14px; }
+.taste-scale label { display: grid; place-items: center; min-height: 58px; border: 1px solid var(--control-border); border-radius: var(--radius-small); cursor: pointer; color: var(--text-muted); font-size: 17px; }
+.taste-scale label:has(input:checked), .taste-scale label:hover { border-color: var(--primary-dark); background: var(--blue-soft); color: var(--navy); }
+.taste-scale input { position: absolute; opacity: 0; }
+.taste-navigation { justify-content: space-between; margin-top: 42px; }
+.taste-result { display: grid; gap: 24px; }
+.taste-hero-result { padding: clamp(28px, 5vw, 54px); }
+.taste-result-label { color: var(--text-muted); margin-top: 20px; }
+.taste-hero-result h2 { margin-top: 4px; font-size: clamp(34px, 5vw, 58px); }
+.taste-hero-result > .reading-copy { max-width: 600px; margin-top: 16px; }
+.taste-keywords { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0; }
+.taste-keywords span { padding: 7px 12px; border-radius: 999px; background: var(--surface); color: var(--sage-ink); font-size: 13px; }
+.taste-dimensions { display: grid; gap: 22px; margin-top: 28px; }
+.taste-dimension > div:first-child { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 8px; color: var(--text-muted); font-size: 14px; }
+.taste-dimension strong { color: var(--primary-dark); }
+.taste-book-list { display: grid; gap: 16px; margin-top: 24px; }
+.taste-book { display: grid; grid-template-columns: 72px 1fr; gap: 18px; padding: 16px; border: 1px solid var(--border); border-radius: var(--radius-small); }
+.taste-book-cover { display: grid; place-items: center; aspect-ratio: 2 / 3; overflow: hidden; background: var(--blue-soft); color: var(--navy); font-size: 10px; text-align: center; }
+.taste-book-cover img { width: 100%; height: 100%; object-fit: cover; }
+.taste-book h3 { font-size: 18px; }
+.taste-book .reading-copy { margin-top: 8px; font-size: 14px; }
 .form-stack { display: grid; gap: 18px; }
 .form-stack label, .interest-fieldset legend { color: var(--navy); font-size: 14px; font-weight: 650; }
 .form-stack input, .search-bar input, .select-control { width: 100%; min-height: 50px; margin-top: 8px; padding: 12px 14px; border: 1px solid var(--control-border); border-radius: var(--radius-small); background: var(--surface); color: var(--text-primary); font: inherit; }

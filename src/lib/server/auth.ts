@@ -41,9 +41,10 @@ export async function profile(request:Request) {
  }
  const data=checked(await db.from('profiles').select('id,display_name,avatar_url,created_at').eq('id',user.id).single());
  const levels=checked(await db.from('user_category_levels').select('*,categories(name,slug)').eq('user_id',user.id));
+ const taste=checked(await db.from('user_taste_profiles').select('archetype_key,dimensions,calculated_at').eq('user_id',user.id).maybeSingle());
  const library=checked(await db.from('user_books').select('status').eq('user_id',user.id));
  const own=checked(await adminDb().from('profiles').select('role').eq('id',user.id).single());
- return {profile:data,levels,counts:{reading:library?.filter(b=>b.status==='reading').length||0,completed:library?.filter(b=>b.status==='completed').length||0,want_to_read:library?.filter(b=>b.status==='want_to_read').length||0},isAdmin:own?.role==='admin'};
+ return {profile:data,levels,taste,counts:{reading:library?.filter(b=>b.status==='reading').length||0,completed:library?.filter(b=>b.status==='completed').length||0,want_to_read:library?.filter(b=>b.status==='want_to_read').length||0},isAdmin:own?.role==='admin'};
 }
 export async function interests(request:Request) {
  const {user}=await requireUser();const input=await body(request,z.object({categoryIds:z.array(uuid).min(1).max(3)}).strict());

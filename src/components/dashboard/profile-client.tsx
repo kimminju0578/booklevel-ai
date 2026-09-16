@@ -12,8 +12,10 @@ import {
   Progress,
 } from "@/components/ui/primitives";
 import { ProfileGamification } from "@/components/gamification/profile-gamification";
+import { readerArchetypes } from "@/lib/taste/config";
 type ProfileData = {
   profile: { display_name: string; avatar_url: string | null; created_at: string };
+  taste: { archetype_key: string; dimensions: Record<string, number>; calculated_at: string } | null;
   levels: {
     category_id: string;
     level: number;
@@ -141,6 +143,10 @@ export function ProfileClient() {
             {message}
           </p>
         )}
+      </Card>
+      <Card className="profile-taste-card">
+        <div className="section-heading"><div><p className="eyebrow">READING TASTE</p><h2>선호하는 독서 방식</h2></div><Link className="text-link" href="/taste">취향 테스트 ↗</Link></div>
+        {data.taste ? <><h3>{readerArchetypes.find((item) => item.key === data.taste?.archetype_key)?.name ?? "나의 독서 유형"}</h3><p className="reading-copy">{readerArchetypes.find((item) => item.key === data.taste?.archetype_key)?.shortDescription ?? "나에게 끌리는 독서 방식을 확인해보세요."}</p><div className="taste-keywords">{readerArchetypes.find((item) => item.key === data.taste?.archetype_key)?.keywords.map((keyword) => <span key={keyword}>{keyword}</span>)}</div></> : <p className="reading-copy">아직 독서 취향 결과가 없어요. 정답 없는 12개의 질문으로 나의 독서 방식을 알아보세요.</p>}
       </Card>
       <div className="two-columns page-section">
         <Card>

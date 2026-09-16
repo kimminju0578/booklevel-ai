@@ -31,6 +31,7 @@ export function SiteHeader({
             ["/", "발견"],
             ["/home", "나의 홈"],
             ["/assessment", "진단"],
+            ["/taste", "취향"],
             ["/recommendations", "추천"],
             ["/search", "책 찾기"],
             ["/community", "커뮤니티"],
