@@ -26,7 +26,7 @@ function shuffled<T>(items: T[]) {
 }
 export async function startAssessment(request: Request) {
   const { user } = await requireUser();
-  await rateLimit(request, "assessment-start", user.id, 5, 3600);
+  await rateLimit(request, "assessment-start-v2", user.id, 10, 600);
   const { categoryId } = await body(
     request,
     z.object({ categoryId: uuid }).strict(),
